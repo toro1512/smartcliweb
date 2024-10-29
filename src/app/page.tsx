@@ -62,7 +62,7 @@ export default function WebApp() {
     const formData = new FormData();
     formData.append('file', file);
     try {
-      const response = await fetch('http://localhost:5000/concoo', {
+      const response = await fetch('https://sersmartq-production.up.railway.app/concoo', {
         method: 'POST',
         body: formData
       });
@@ -86,7 +86,7 @@ export default function WebApp() {
   const handleChrSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/conchr", {
+      const response = await fetch("https://sersmartq-production.up.railway.app/conchr", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ tex }),
@@ -116,7 +116,7 @@ export default function WebApp() {
   const handlePasSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/directa", {
+      const response = await fetch("https://sersmartq-production.up.railway.app/directa", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ usu, pas }),
@@ -144,7 +144,7 @@ export default function WebApp() {
   const handleTextSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/buspla", {
+      const response = await fetch("https://sersmartq-production.up.railway.app/buspla", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ pla }),
@@ -157,7 +157,8 @@ export default function WebApp() {
           .replace(/\[/g, '')
           .replace(/\]/g, '')
           .replace(/,/g, ' ')
-          .replace(/\s+/g, ' ');
+          .replace(/\s+/g, ' ')
+          .replace(/zz/g, '\n');
         setTextareaContent(formattedResponse);
         toast({
           title: "Éxito",
