@@ -158,7 +158,9 @@ export default function WebApp() {
           .replace(/\]/g, '')
           .replace(/,/g, ' ')
           .replace(/\s+/g, ' ')
-          .replace(/zz/g, '\n');
+          .replace(/zz/g, '\n')
+          .replace(/m/g, ' ')
+          .replace(/uu/g, '\/');
         setTextareaContent(formattedResponse);
         toast({
           title: "Éxito",
