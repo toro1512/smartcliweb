@@ -1,9 +1,11 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
+import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import {
   Card,
   CardContent,
@@ -11,24 +13,35 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+interface ResponseData { valor: string; detalle: string; index: number; }
 
 export default function WebApp() {
   const [usu, setUsu] = useState("");
   const [pas, setPas] = useState("");
-  const [tex, setTex] = useState("");
   const [pla, setPla] = useState("");
   const [textareaContent, setTextareaContent] = useState("");
   const [showTextInput, setShowTextInput] = useState(false);
   const [showPosibleConec, setShowPosibleConec] = useState(true);
+  const [responseData, setResponseData] = useState<ResponseData[] | null>(null);
+  const [selectedOption, setSelectedOption] = useState<string>("opcion1")
   const [file, setFile] = useState<File | null>(null);
   const [fileUploadStatus, setFileUploadStatus] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [formattedData, setFormattedData] = useState<string>('');
 
   useEffect(() => {
     if (textareaContent) {
       copyToClipboard(textareaContent);
     }
+    
+    
   }, [textareaContent]);
+ 
+  
+  const ruuta="http://localhost:5000"
+  
+  //http://localhost:5000
+  //https://sersmartq-production.up.railway.app
 
   const copyToClipboard = async (text: string) => {
     try {
@@ -52,6 +65,226 @@ export default function WebApp() {
       setFile(e.target.files[0]);
     }
   };
+  const handleClickRE = async () => {
+    try{
+    await fetch(ruuta+'/reiniciaa', { method: 'GET' });
+    alert('reiniciaste las variable debes volver a la pantalla de inicio')
+    setShowTextInput(false);
+    setShowPosibleConec(true);
+    setPla("")
+    setSelectedOption('ocpion1')
+    setFormattedData("")
+  } catch (error) {
+    console.error('Error:', error);
+    setFileUploadStatus('error reiniciando');
+  }
+   };
+   const handleClickLI = async () => { 
+    try{
+      await fetch(ruuta+'/cierranave', { method: 'GET' });
+    alert('cerraste la sesion debes pantalla de inicio')
+    setShowTextInput(false);
+    setShowPosibleConec(true);
+    setPla("")
+    setSelectedOption('ocpion1')
+    setFormattedData("")
+  } catch (error) {
+    console.error('Error:', error);
+    setFileUploadStatus('error reiniciando');
+  }
+   };
+
+
+  const getDisplayData = useCallback((): string => {
+    
+    if (!responseData) return ""
+    let indicesToShow: number[] = [];
+    switch (selectedOption) {
+            case 'opcion1':
+            indicesToShow = [15, 16, 17, 18,19,20,25,26,28,184,185,186,187,188,230,22,143,117,118,190,204,23,24];
+            return indicesToShow.map((index, i) => {
+              const item = responseData.find(item => item.index === index - 1);
+              if (!item) return '';
+             
+              if (i === 0) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 1) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 2) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}/`;
+              }
+              if (i === 3) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}`;
+              }
+              if (i === 4) {
+                return ` ${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}/`;
+              }
+              if (i === 5) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i ==6) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}/`;
+              }
+              if (i === 7) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 8) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}\n`;
+              }
+              if (i === 9) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 10) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 11) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 12) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 13) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 14) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}/`;
+              }
+              if (i === 15) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}\n`;
+              }
+              if (i === 16) {
+                return `XF ${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 17) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}/`;
+              }
+              if (i === 18) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}\n`;
+              }
+              if (i === 19) {
+                return `SQ ${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 20) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 21) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 22) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}`;
+              }
+                           
+              
+            }).join('');
+          case 'opcion2':
+            indicesToShow = [15, 16, 17, 18,25,26,28,45,59,52,66,62,76,69,83,44,58,193,47,61];
+            return indicesToShow.map((index, i) => {
+              const item = responseData.find(item => item.index === index - 1);
+              if (!item) return '';
+              if (i === 0) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 1) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 2) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}/`;
+              }
+              if (i === 3) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}`;
+              }
+              if (i === 4) {
+                return ` /${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}/`;
+              }
+              if (i === 5) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i ==6) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}\n`;
+              }
+              if (i === 7) {
+                return `FLO ${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 8) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}`;
+              }
+              if (i === 9) {
+                return ` ${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 10) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}\n`;
+              }
+              if (i === 11) {
+                return `PRO ${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 12) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 13) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 14) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}\n`;
+              }
+              if (i === 15) {
+                return `FCB ${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 16) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle}) `} `;
+              }
+              if (i === 17) {
+                return `/${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}-`;
+              }
+              if (i === 18) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 19) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}`;
+              }
+                                 
+              
+            }).join('');
+          case 'opcion3':
+            indicesToShow = [15, 16, 17, 18, 25,26,28];
+            return indicesToShow.map((index, i) => {
+              const item = responseData.find(item => item.index === index - 1);
+              if (!item) return '';
+             
+              if (i === 0) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 1) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 2) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}/`;
+              }
+              if (i === 3) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 4) {
+                return `/${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}/`;
+              }
+              if (i === 5) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i ==6) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}`;
+              }
+    
+              
+            }).join('');
+          default:
+            return 'Opción no válida'; // Manejo del caso por defecto
+        }
+      }, [responseData, selectedOption]);
+      useEffect(() => { 
+        if (responseData) { 
+        setFormattedData(getDisplayData()); 
+      } 
+    }, [responseData, selectedOption, getDisplayData]);
 
   const handleFileUpload = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,7 +295,8 @@ export default function WebApp() {
     const formData = new FormData();
     formData.append('file', file);
     try {
-      const response = await fetch('https://sersmartq-production.up.railway.app/concoo', {
+      console.log(ruuta+'/concoo')
+      const response = await fetch(ruuta+'/concoo', {
         method: 'POST',
         body: formData
       });
@@ -83,40 +317,10 @@ export default function WebApp() {
     }
   };
 
-  const handleChrSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("https://sersmartq-production.up.railway.app/conchr", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ tex }),
-      });
-      if (response.ok) {
-        setShowPosibleConec(false);
-        setShowTextInput(true);
-      } else {
-        const errorMessage = await response.text();
-        console.error(errorMessage);
-        toast({
-          title: "Error",
-          description: "Error en la respuesta del servicio",
-          variant: "destructive",
-        });
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      toast({
-        title: "Error",
-        description: "Error al abrir Chrome",
-        variant: "destructive",
-      });
-    }
-  };
-
   const handlePasSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://sersmartq-production.up.railway.app/directa", {
+      const response = await fetch(ruuta+"/directa", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ usu, pas }),
@@ -144,24 +348,18 @@ export default function WebApp() {
   const handleTextSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://sersmartq-production.up.railway.app/buspla", {
+      const response = await fetch(ruuta+"/buspla", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ pla }),
       });
       if (response.ok) {
-        const data = await response.json();
-        const formattedResponse = JSON.stringify(data)
-          .replace(/"/g, '')
-          .replace(/\\/g, '')
-          .replace(/\[/g, '')
-          .replace(/\]/g, '')
-          .replace(/,/g, ' ')
-          .replace(/\s+/g, ' ')
-          .replace(/zz/g, '\n')
-          .replace(/m/g, ' ')
-          .replace(/uu/g, '\/');
+        const data: ResponseData[] =await response.json();
+        const formattedResponse= JSON.stringify(data);
+        setResponseData(data);
         setTextareaContent(formattedResponse);
+        console.log(formattedResponse)
+        setSelectedOption('opcion1')
         toast({
           title: "Éxito",
           description: "Datos del jugador obtenidos y copiados al portapapeles",
@@ -186,8 +384,8 @@ export default function WebApp() {
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-xl">
       {showPosibleConec && (
-        <>
-        <Card>
+      <>
+       <Card>
         <CardHeader>
           <CardTitle>Entrar a la busquedad de player</CardTitle>
                   </CardHeader>
@@ -200,7 +398,7 @@ export default function WebApp() {
             </Button>
         </CardContent>
       </Card>
-          <Card className="border mt-6">
+        <Card className="border mt-6">
             <CardHeader>
               <CardTitle>Conexión Directa</CardTitle>
               <CardDescription>
@@ -223,27 +421,6 @@ export default function WebApp() {
                 />
                 <Button type="submit" className="w-full">
                   Ingresar
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
-          <Card className="border mt-6">
-            <CardHeader>
-              <CardTitle>Conexión ChromeDeveloper</CardTitle>
-              <CardDescription>
-                Debes Iniciar Chrome Developer y enviar IP 
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleChrSubmit} className="mb-4">
-                <Input
-                  onChange={(e) => setTex(e.target.value)}
-                  placeholder="Envía dirección IP"
-                  required
-                  className="mb-2"
-                />
-                <Button type="submit" className="w-full">
-                  Enviar
                 </Button>
               </form>
             </CardContent>
@@ -285,11 +462,20 @@ export default function WebApp() {
               Buscar Datos
             </Button>
           </form>
+          <RadioGroup value={selectedOption} onValueChange={setSelectedOption}> <div className="flex space-x-4">
+             <div className="flex items-center space-x-2"> 
+            <RadioGroupItem value="opcion1" id="opcion1" /> <Label htmlFor="opcion1">Regular</Label> </div>
+             <div className="flex items-center space-x-2"> 
+            <RadioGroupItem value="opcion2" id="opcion2" /> <Label htmlFor="opcion2">Fish</Label>  </div>
+              <div className="flex items-center space-x-2"> 
+            <RadioGroupItem value="opcion3" id="opcion3" /> <Label htmlFor="opcion3">PocaInfo</Label> </div> 
+           </div> 
+          </RadioGroup>
           <Textarea 
             ref={textareaRef}
-            value={textareaContent}
+            value={formattedData}
             readOnly 
-            className="w-full h-40 mb-2" 
+            className="w-full h-40 mb-2 mt-3" 
           />
           <div className="flex justify-between">
             <Button
@@ -308,6 +494,17 @@ export default function WebApp() {
               Volver
             </Button>
           </div>
+          <div className="bg-background bg-grey-600 mt-5">
+        
+            <Button style={{ backgroundColor: 'red', color: '#fff', width: '100%'  }} onClick={handleClickRE}
+             className="w-full">
+              Reiniciar Variable
+            </Button>
+            <Button style={{ backgroundColor: 'red', color: '#fff', width: '100%', marginTop: '10px' }} onClick={handleClickLI}  className="w-full">
+              Cerrar Servidor
+            </Button>
+       
+      </div>
         </>
       )}
     </div>
