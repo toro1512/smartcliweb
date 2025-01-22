@@ -38,9 +38,10 @@ export default function WebApp() {
   }, [textareaContent]);
  
   
-  const ruuta="http://localhost:5000"
+  const ruuta="https://sersmartq-production.up.railway.app"
   
   //http://localhost:5000
+  
   //https://sersmartq-production.up.railway.app
 
   const copyToClipboard = async (text: string) => {
