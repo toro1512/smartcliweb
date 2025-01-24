@@ -19,7 +19,6 @@ export default function WebApp() {
   const [usu, setUsu] = useState("");
   const [pas, setPas] = useState("");
   const [pla, setPla] = useState("");
-  const [textareaContent, setTextareaContent] = useState("");
   const [showTextInput, setShowTextInput] = useState(false);
   const [showPosibleConec, setShowPosibleConec] = useState(true);
   const [responseData, setResponseData] = useState<ResponseData[] | null>(null);
@@ -30,12 +29,12 @@ export default function WebApp() {
   const [formattedData, setFormattedData] = useState<string>('');
 
   useEffect(() => {
-    if (textareaContent) {
-      copyToClipboard(textareaContent);
+    if (formattedData) {
+      copyToClipboard(formattedData);
     }
     
     
-  }, [textareaContent]);
+  }, [formattedData]);
  
   
   const ruuta="https://sersmartq-production.up.railway.app"
@@ -102,7 +101,7 @@ export default function WebApp() {
     let indicesToShow: number[] = [];
     switch (selectedOption) {
             case 'opcion1':
-            indicesToShow = [15, 16, 17, 18,19,20,25,26,28,184,185,186,187,188,230,22,143,117,118,190,204,23,24];
+            indicesToShow = [15, 16, 17, 18,19,20,25,26,28,184,185,186,187,188,232,198,199,200,201,202,22,143,117,118,190,204,23,24];
             return indicesToShow.map((index, i) => {
               const item = responseData.find(item => item.index === index - 1);
               if (!item) return '';
@@ -156,24 +155,39 @@ export default function WebApp() {
                 return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}\n`;
               }
               if (i === 16) {
-                return `XF ${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
               }
               if (i === 17) {
-                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}/`;
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
               }
               if (i === 18) {
-                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}\n`;
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
               }
               if (i === 19) {
-                return `SQ ${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
               }
               if (i === 20) {
-                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}\n`;
               }
               if (i === 21) {
-                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+                return `XF ${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
               }
               if (i === 22) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}/`;
+              }
+              if (i === 23) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}\n`;
+              }
+              if (i === 24) {
+                return `SQ ${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 25) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 26) {
+                return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`} `;
+              }
+              if (i === 27) {
                 return `${item.valor}${item.detalle === '-' ? '' : `(${item.detalle})`}`;
               }
                            
@@ -356,10 +370,7 @@ export default function WebApp() {
       });
       if (response.ok) {
         const data: ResponseData[] =await response.json();
-        const formattedResponse= JSON.stringify(data);
         setResponseData(data);
-        setTextareaContent(formattedResponse);
-        console.log(formattedResponse)
         setSelectedOption('opcion1')
         toast({
           title: "Éxito",
@@ -480,7 +491,7 @@ export default function WebApp() {
           />
           <div className="flex justify-between">
             <Button
-              onClick={() => copyToClipboard(textareaContent)}
+              onClick={() => copyToClipboard(formattedData)}
               className="flex-1 mr-2"
             >
               Copiar
