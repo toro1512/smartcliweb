@@ -101,7 +101,7 @@ export default function WebApp() {
     let indicesToShow: number[] = [];
     switch (selectedOption) {
             case 'opcion1':
-            indicesToShow = [15, 16, 17, 18,19,20,25,26,28,184,185,186,187,188,232,198,199,200,201,202,22,143,117,118,190,204,23,24];
+            indicesToShow = [15, 16, 17, 18,19,20,25,26,28,184,185,186,187,188,232,22,198,199,200,201,202,143,117,118,190,204,23,24];
             return indicesToShow.map((index, i) => {
               const item = responseData.find(item => item.index === index - 1);
               if (!item) return '';
